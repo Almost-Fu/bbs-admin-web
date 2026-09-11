@@ -1,14 +1,14 @@
 <template>
   <div class="page-card">
-    <!-- 后端暂缺用户管理接口时的说明（不弹错误提示，页面内联告知） -->
+    <!-- 接口异常时的说明（正常情况下不显示；不弹错误提示，页面内联告知） -->
     <el-alert
       v-if="apiMissing"
       class="gap-alert"
       type="warning"
       show-icon
       :closable="false"
-      title="后端暂未提供用户管理接口"
-      description="本页需要后端新增 GET /api/admin/users、GET /api/admin/users/{id}、PATCH /api/admin/users/{id}/status 三个接口（契约见 src/api/user.js 与 README 的「接口缺口清单」）。补齐后本页会自动生效，无需改动前端代码。"
+      title="用户管理接口暂时不可用"
+      description="请确认后端服务已启动/部署完成（GET /api/admin/users）。服务恢复后点右侧「刷新」即可，本页无需改动。"
     />
 
     <!-- ============ 筛选区 ============ -->
@@ -78,7 +78,7 @@
           </el-button>
         </template>
       </el-table-column>
-      <template #empty>暂无用户数据（或后端接口待提供）</template>
+      <template #empty>暂无用户数据</template>
     </el-table>
 
     <!-- ============ 分页 ============ -->
@@ -125,8 +125,8 @@
 
 <script setup>
 // ---------------------------------------------------------------------------
-// 用户管理：列表 / 详情 / 禁用启用
-// 后端接口待提供（见 src/api/user.js），本页在 404/405 时展示内联说明
+// 用户管理：列表 / 详情 / 禁用启用（接口见 src/api/user.js，后端已提供）
+// 若返回 404/405 则展示内联说明（多为后端未就绪，不是前端问题）
 // ---------------------------------------------------------------------------
 import { onMounted, reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'

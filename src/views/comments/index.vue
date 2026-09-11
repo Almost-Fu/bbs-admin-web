@@ -124,9 +124,9 @@
 <script setup>
 // ---------------------------------------------------------------------------
 // 评论管理
-//   Tab1「全部评论」：GET /api/admin/comments（后端待提供）→ 缺失时内联提示
-//   Tab2「按帖子查看」：GET /api/posts/{postId}/comments（后端已提供，可用）
-//   删除评论：DELETE /api/comments/{id}（后端待提供）
+//   Tab1「全部评论」：GET /api/admin/comments（后端已提供）
+//   Tab2「按帖子查看」：GET /api/posts/{postId}/comments（后端已提供）
+//   删除评论：DELETE /api/comments/{id}（后端已提供，软删除）
 // ---------------------------------------------------------------------------
 import { onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'

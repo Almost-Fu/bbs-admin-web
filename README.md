@@ -22,10 +22,10 @@ bbs-admin-web/
     │   ├── request.js          # axios 统一封装：token 注入、统一响应体拆包、401 跳登录、404/405 标记
     │   ├── auth.js             # 登录 / 当前用户
     │   ├── admin.js            # 管理员账号管理（高级管理员，后端已提供）
-    │   ├── user.js             # 用户管理（后端待提供）
-    │   ├── bar.js              # 贴吧板块（新增可用；编辑/删除待提供）
+    │   ├── user.js             # 用户管理（全部可用）
+    │   ├── bar.js              # 贴吧板块（全部可用）
     │   ├── post.js             # 帖子（全部可用）
-    │   ├── comment.js          # 评论（按帖查看可用；全部列表/删除待提供）
+    │   ├── comment.js          # 评论（全部可用）
     │   └── system.js           # 健康检查
     ├── stores/user.js          # Pinia：token + 用户信息 + 角色判断（isAdmin / isSuperAdmin）
     ├── router/index.js         # 路由 + 守卫（未登录 / 非管理员 / 非高级管理员）
@@ -135,8 +135,8 @@ npm run preview                              :: http://127.0.0.1:5181
 | 登录提示「无法连接后端服务」 | 后端没启动：在 `bbs-app-backend` 执行 `.venv\Scripts\python.exe main.py` |
 | 顶栏显示「后端已连接，数据库异常」 | MySQL 没启动：管理员终端执行 `net start MySQL`，并确认已导入 `sql/bbs_schema.sql` |
 | 登录提示「该账号不是管理员」 | 用了普通用户（如 demo）；请用 `admin / admin123456` |
-| 用户管理页显示「后端暂未提供用户管理接口」 | 正常现象，见上面的「接口缺口清单」，后端补齐后自动生效 |
-| 贴吧「编辑 / 删除」提示接口待提供 | 同上（`PUT /api/bars/{id}`、`DELETE /api/bars/{id}` 待后端提供） |
+| 页面顶部提示「用户管理接口暂时不可用」 | 后端没起来/部署没完成：先打开 `https://<后端>/api/health` 唤醒并确认返回 `db:true`，再点「刷新」 |
+| 贴吧不显示吧图 | 吧图来自后端 `/static/images/bars/`（16 张随代码发布）；确认 `.env.production` 的 `VITE_STATIC_BASE` 指向后端域名 |
 | 图片不显示（生产 `npm run preview`） | `.env.production` 的 `VITE_STATIC_BASE` 要指向后端地址（默认已配好 `http://127.0.0.1:8000`） |
 | 表格分页每页最多只能 50 条 | 后端对 `pageSize` 限制为 ≤50，属预期行为 |
 | 启动后地址变成了 5181/5182… | 5180 被占用时 Vite 会自动往后找；本机 HBuilderX 运行 uni-app 到浏览器会占用 **5173**，所以本项目默认用 5180 避开它 |

@@ -11,7 +11,7 @@
 import request from './request'
 
 /**
- * 全部评论（分页）  ← 后端待提供
+ * 全部评论（分页）
  * GET /api/admin/comments
  */
 export function fetchComments(params) {
@@ -28,7 +28,7 @@ export function fetchCommentsByPost(postId, params) {
 }
 
 /**
- * 删除违规评论  ← 后端待提供
+ * 删除违规评论（软删除 status=0，同时把帖子评论数 -1）
  * DELETE /api/comments/{id}
  */
 export function removeComment(id) {

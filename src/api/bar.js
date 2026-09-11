@@ -1,8 +1,7 @@
 // ---------------------------------------------------------------------------
 // 贴吧板块接口
 //   ✔ 列表 / 详情 / 新增：后端已提供
-//   ⚠ 编辑 / 删除：当前 bbs-app-backend 未提供（页面会给出「接口待提供」提示）
-//     约定契约：PUT /api/bars/{id} 与 DELETE /api/bars/{id}（管理员）
+//   ✔ 编辑 / 删除：后端已提供 PUT /api/bars/{id} 与 DELETE /api/bars/{id}（管理员）
 // ---------------------------------------------------------------------------
 import request from './request'
 
@@ -40,7 +39,7 @@ export function updateBar(id, data) {
 
 /**
  * 删除贴吧（会级联删除吧内帖子/关注，后端需 ON DELETE CASCADE）
- * DELETE /api/bars/{id}   ← 后端待提供
+ * DELETE /api/bars/{id}（管理员；吧内帖子/关注/收藏随外键级联删除）
  */
 export function removeBar(id) {
   return request.delete(`/bars/${id}`)

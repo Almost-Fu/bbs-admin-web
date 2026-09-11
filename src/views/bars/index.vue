@@ -82,7 +82,7 @@
 // 贴吧板块管理
 //   ✔ 列表：GET /api/bars（后端返回数组 → 前端分页）
 //   ✔ 新增：POST /api/bars（管理员）
-//   ⚠ 编辑 / 删除：后端待提供 PUT /api/bars/{id}、DELETE /api/bars/{id}
+//   ✔ 编辑 / 删除：PUT /api/bars/{id}、DELETE /api/bars/{id}（后端已提供）
 // ---------------------------------------------------------------------------
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'

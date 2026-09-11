@@ -12,7 +12,7 @@
               <div class="stat-label">{{ card.label }}</div>
               <div v-if="card.available" class="stat-value">{{ card.value }}</div>
               <div v-else class="stat-value gap">
-                <el-tooltip content="当前后端未提供该统计接口，详见 README 的「接口缺口清单」" placement="top">
+                <el-tooltip content="统计接口暂时不可用（请检查后端服务是否已就绪）" placement="top">
                   <span>接口待提供</span>
                 </el-tooltip>
               </div>
@@ -101,7 +101,7 @@ const router = useRouter()
 const loading = ref(false)
 const apiBase = import.meta.env.VITE_API_BASE || '/api'
 
-// 统计数字：available=false 表示后端暂时没有该接口，卡片显示「接口待提供」
+// 统计数字：available=false 表示接口暂时不可用（多为后端未就绪），卡片显示占位提示
 const stats = reactive({
   barCount: { value: 0, available: false },
   postCount: { value: 0, available: false },
@@ -146,7 +146,7 @@ async function loadAll() {
   // 3) 帖子总数：/api/posts 返回分页结构，取 total
   await loadStat(stats.postCount, async () => (await fetchPosts({ page: 1, pageSize: 1 })).data.total)
 
-  // 4) 用户总数 / 评论总数：后端暂无接口时自动降级为「接口待提供」
+  // 4) 用户总数 / 评论总数：接口异常时自动降级为占位提示（不影响其它卡片）
   await loadStat(stats.userCount, async () => (await fetchUsers({ page: 1, pageSize: 1 })).data.total)
   await loadStat(stats.commentCount, async () => (await fetchComments({ page: 1, pageSize: 1 })).data.total)
 
