@@ -45,7 +45,9 @@
     <el-table :data="list" v-loading="loading" border stripe>
       <el-table-column prop="id" label="ID" width="70" />
       <el-table-column label="头像" width="70" align="center">
-        <template #default="{ row }">{{ row.avatar || '🛡️' }}</template>
+        <template #default="{ row }">
+          <el-avatar :size="32" :src="resolveImageUrl(row.avatar)" />
+        </template>
       </el-table-column>
       <el-table-column prop="username" label="用户名" min-width="130" show-overflow-tooltip />
       <el-table-column prop="nickname" label="昵称" min-width="120" show-overflow-tooltip />
@@ -187,7 +189,7 @@ import {
   STATUS_TAG_TYPE,
   STATUS_TEXT
 } from '@/utils/constants'
-import { formatDateTime } from '@/utils/format'
+import { formatDateTime, resolveImageUrl } from '@/utils/format'
 
 const loading = ref(false)
 const list = ref([])

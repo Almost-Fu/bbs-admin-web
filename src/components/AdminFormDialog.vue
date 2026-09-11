@@ -23,8 +23,8 @@
         <el-input v-model="form.nickname" maxlength="20" placeholder="选填，留空则用用户名" />
       </el-form-item>
       <el-form-item label="头像" prop="avatar">
-        <el-input v-model="form.avatar" maxlength="8" placeholder="emoji，如 🛡️ / 👑" />
-        <span class="hint">后台顶栏与操作记录里展示的 emoji 头像</span>
+        <el-input v-model="form.avatar" maxlength="255" placeholder="/static/avatars/avatar-1.png 或图片地址" />
+        <span class="hint">头像图片地址（默认 /static/avatars/default.png，后端 /static/avatars 下内置了 8 张）</span>
       </el-form-item>
       <el-form-item label="角色" prop="role">
         <el-radio-group v-model="form.role">
@@ -59,6 +59,9 @@ const props = defineProps({
 })
 const emit = defineEmits(['update:modelValue', 'saved'])
 
+/** 默认头像：后端内置头像图（数据库里存的就是这类图片地址） */
+const DEFAULT_AVATAR = '/static/avatars/default.png'
+
 const formRef = ref(null)
 const submitting = ref(false)
 
@@ -66,7 +69,7 @@ const form = reactive({
   username: '',
   password: '',
   nickname: '',
-  avatar: '🛡️',
+  avatar: DEFAULT_AVATAR,
   role: 'admin'
 })
 
@@ -87,7 +90,7 @@ watch(
   () => props.modelValue,
   (visible) => {
     if (!visible) return
-    Object.assign(form, { username: '', password: '', nickname: '', avatar: '🛡️', role: 'admin' })
+    Object.assign(form, { username: '', password: '', nickname: '', avatar: DEFAULT_AVATAR, role: 'admin' })
     formRef.value?.clearValidate()
   }
 )
@@ -109,7 +112,7 @@ async function submit() {
       username: form.username.trim(),
       password: form.password,
       nickname: form.nickname.trim(),
-      avatar: form.avatar.trim() || '🛡️',
+      avatar: form.avatar.trim() || DEFAULT_AVATAR,
       role: form.role
     })
     ElMessage.success(message || '管理员创建成功')

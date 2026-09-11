@@ -43,7 +43,7 @@
 
           <el-dropdown @command="onCommand">
             <span class="user">
-              <span class="avatar">{{ userStore.avatar }}</span>
+              <img class="avatar" :src="userStore.avatar" alt="" />
               <span class="name">{{ userStore.displayName }}</span>
               <el-icon><ArrowDown /></el-icon>
             </span>
@@ -190,9 +190,8 @@ async function onCommand(command) {
   height: 30px;
   border-radius: 50%;
   background: #ecf5ff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  object-fit: cover;
+  display: block;
   margin-right: 8px;
   font-size: 16px;
 }

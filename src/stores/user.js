@@ -6,6 +6,10 @@ import { defineStore } from 'pinia'
 import { login as loginApi, getMe } from '@/api/auth'
 import { getToken, setToken, getUser, setUser, clearAuth } from '@/utils/auth'
 import { ROLE_TEXT } from '@/utils/constants'
+import { resolveImageUrl } from '@/utils/format'
+
+/** 默认头像：后端内置的头像图（数据库里存的就是这类图片地址，不再有 emoji） */
+const DEFAULT_AVATAR = '/static/avatars/default.png'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -24,8 +28,8 @@ export const useUserStore = defineStore('user', {
     roleText: (state) => ROLE_TEXT[state.user?.role] || '未知角色',
     /** 顶栏展示用的昵称 */
     displayName: (state) => state.user?.nickname || state.user?.username || '未登录',
-    /** 头像：后端存的是 emoji 字符 */
-    avatar: (state) => state.user?.avatar || '🙂'
+    /** 头像地址：数据库里存的是 /static/avatars/xxx.png，这里拼成完整地址（未设置时用默认头像） */
+    avatar: (state) => resolveImageUrl(state.user?.avatar || DEFAULT_AVATAR)
   },
 
   actions: {

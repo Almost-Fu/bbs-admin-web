@@ -38,7 +38,7 @@
       <el-table-column prop="id" label="ID" width="80" />
       <el-table-column label="头像" width="80" align="center">
         <template #default="{ row }">
-          <span class="emoji-avatar">{{ row.avatar || '🙂' }}</span>
+          <el-avatar :size="34" :src="resolveImageUrl(row.avatar)" />
         </template>
       </el-table-column>
       <el-table-column prop="username" label="用户名" min-width="140" show-overflow-tooltip />
@@ -101,7 +101,9 @@
         <el-descriptions-item label="ID">{{ detail.id }}</el-descriptions-item>
         <el-descriptions-item label="用户名">{{ detail.username }}</el-descriptions-item>
         <el-descriptions-item label="昵称">{{ detail.nickname || '-' }}</el-descriptions-item>
-        <el-descriptions-item label="头像">{{ detail.avatar || '🙂' }}</el-descriptions-item>
+        <el-descriptions-item label="头像">
+          <el-avatar :size="44" :src="resolveImageUrl(detail.avatar)" />
+        </el-descriptions-item>
         <el-descriptions-item label="角色">
           {{ ROLE_TEXT[detail.role] || detail.role }}
         </el-descriptions-item>
@@ -131,7 +133,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { Search, Refresh, RefreshRight } from '@element-plus/icons-vue'
 import { fetchUsers, fetchUserDetail, updateUserStatus } from '@/api/user'
 import { ROLE_OPTIONS, STATUS_OPTIONS, ROLE_TAG_TYPE, ROLE_TEXT, STATUS_TAG_TYPE, STATUS_TEXT, PAGE_SIZE_OPTIONS } from '@/utils/constants'
-import { formatDateTime } from '@/utils/format'
+import { formatDateTime, resolveImageUrl } from '@/utils/format'
 
 const loading = ref(false)
 const apiMissing = ref(false) // 后端未提供用户接口时置 true，用于展示提示条
