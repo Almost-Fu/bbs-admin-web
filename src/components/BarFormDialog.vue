@@ -10,10 +10,6 @@
       <el-form-item label="吧名" prop="name">
         <el-input v-model="form.name" placeholder="如：前端吧" maxlength="32" show-word-limit />
       </el-form-item>
-      <el-form-item label="图标" prop="icon">
-        <el-input v-model="form.icon" placeholder="emoji，如 💻" maxlength="8" />
-        <span class="hint">建议使用单个 emoji（App 端吧卡片直接展示该字符）</span>
-      </el-form-item>
       <el-form-item label="吧图" prop="image">
         <el-input v-model="form.image" placeholder="图片地址，如 /uploads/bars/xxx.png（可留空）" />
       </el-form-item>
@@ -60,7 +56,6 @@ const submitting = ref(false)
 
 const form = reactive({
   name: '',
-  icon: '💬',
   image: '',
   intro: '',
   owner: '官方',
@@ -71,8 +66,7 @@ const rules = {
   name: [
     { required: true, message: '请输入吧名', trigger: 'blur' },
     { max: 32, message: '吧名最多 32 个字符', trigger: 'blur' }
-  ],
-  icon: [{ max: 8, message: '图标最多 8 个字符', trigger: 'blur' }]
+  ]
 }
 
 // 打开弹窗时把数据回填（编辑）/ 复位（新增）
@@ -83,7 +77,6 @@ watch(
     const source = props.mode === 'edit' && props.bar ? props.bar : {}
     Object.assign(form, {
       name: source.name || '',
-      icon: source.icon || '💬',
       image: source.img || source.image || '',
       intro: source.intro || source.desc || '',
       owner: source.owner || '官方',
@@ -107,7 +100,6 @@ async function submit() {
   submitting.value = true
   const payload = {
     name: form.name.trim(),
-    icon: form.icon.trim() || '💬',
     image: form.image.trim() || null,
     intro: form.intro.trim(),
     owner: form.owner.trim() || '官方',

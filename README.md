@@ -109,7 +109,7 @@ npm run preview                              :: http://127.0.0.1:5181
 | GET | `/api/admin/users` | 用户列表 | 分页结构；每项 `{id,username,nickname,avatar,role,status,createdAt,postCount,commentCount}` |
 | GET | `/api/admin/users/{id}` | 用户详情 | 同上单个对象 |
 | PATCH | `/api/admin/users/{id}/status` | 禁用/启用 | body `{"status":0}` 或 `{"status":1}`；返回 `{id,status,statusText}` |
-| PUT | `/api/bars/{id}` | 编辑贴吧 | body `{name,icon,image,intro,owner,sort}`；返回编辑后的吧对象 |
+| PUT | `/api/bars/{id}` | 编辑贴吧 | body `{name,image,intro,owner,sort}`；返回编辑后的吧对象 |
 | DELETE | `/api/bars/{id}` | 删除贴吧 | 建议软删除或在库里把该吧帖子一并处理（外键已 CASCADE） |
 | GET | `/api/admin/comments` | 全部评论 | 分页结构；每项 `{id,postId,postTitle,author,authorAvatar,text,likes,createdAt,status}` |
 | DELETE | `/api/comments/{id}` | 删除评论 | 建议软删除 `status=0`，并把对应帖子的 `comment_count - 1` |

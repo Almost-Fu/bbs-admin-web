@@ -24,7 +24,7 @@ export function fetchBarDetail(id) {
 
 /**
  * 新增贴吧（仅管理员）
- * POST /api/bars  body: { name, icon, image, intro, owner, sort }
+ * POST /api/bars  body: { name, image, intro, owner, sort }（emoji 图标已废弃，不再传 icon）
  */
 export function createBar(data) {
   return request.post('/bars', data)
@@ -32,7 +32,7 @@ export function createBar(data) {
 
 /**
  * 编辑贴吧
- * PUT /api/bars/{id}  body: { name, icon, image, intro, owner, sort }   ← 后端待提供
+ * PUT /api/bars/{id}  body: { name, image, intro, owner, sort }（emoji 图标已废弃，不再传 icon）
  */
 export function updateBar(id, data) {
   return request.put(`/bars/${id}`, data)

@@ -5,8 +5,8 @@
       type="info"
       show-icon
       :closable="false"
-      title="贴吧板块：列表 / 新增可用；编辑、删除需要后端补充接口"
-      description="缺失接口契约：PUT /api/bars/{id}（编辑）、DELETE /api/bars/{id}（删除）。详见 README 的「接口缺口清单」，后端补齐后本页按钮即可直接使用。"
+      title="贴吧板块：列表 / 新增 / 编辑 / 删除均已可用"
+      description="吧的形象统一用「吧图」（image 字段）；emoji 吧图标已废弃，数据库里也没有这一列了。"
     />
 
     <!-- ============ 筛选区 ============ -->
@@ -28,9 +28,6 @@
     <!-- ============ 贴吧表格（后端返回数组，分页在前端做） ============ -->
     <el-table :data="pagedBars" v-loading="loading" border stripe>
       <el-table-column prop="id" label="ID" width="70" />
-      <el-table-column label="图标" width="70" align="center">
-        <template #default="{ row }">{{ row.icon || '💬' }}</template>
-      </el-table-column>
       <el-table-column prop="name" label="吧名" min-width="140" show-overflow-tooltip />
       <el-table-column label="吧图" width="90" align="center">
         <template #default="{ row }">
