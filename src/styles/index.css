@@ -1,0 +1,82 @@
+/* ==========================================================================
+   全局样式（PC 后台基线）
+   - 固定最小宽度 1200px：窗口过窄时出现横向滚动条，而不是挤压布局
+   - 抽几个复用的容器类，页面里直接套用，减少重复样式
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-width: 1200px;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', Arial, sans-serif;
+  font-size: 14px;
+  color: #303133;
+  background-color: #f0f2f5;
+}
+
+/* 页面卡片：列表页统一用白底卡片包住「筛选 + 表格 + 分页」 */
+.page-card {
+  background: #fff;
+  border-radius: 6px;
+  padding: 16px;
+}
+
+/* 顶部筛选区 */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.toolbar .el-form-item {
+  margin-bottom: 0;
+}
+
+/* 右侧操作按钮组（新增等） */
+.toolbar-right {
+  margin-left: auto;
+}
+
+/* 分页条 */
+.pagination-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+/* 表格里的图片缩略图 */
+.table-thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  display: block;
+  object-fit: cover;
+  background: #f5f7fa;
+}
+
+/* 表格内多行文本（正文截断展示） */
+.table-multiline {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  line-height: 1.5;
+}
+
+/* 后端接口缺失时的提示条：不弹错误 toast，页面内联说明 */
+.gap-alert {
+  margin-bottom: 16px;
+}
