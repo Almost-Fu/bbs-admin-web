@@ -83,26 +83,26 @@ npm run preview                              :: http://127.0.0.1:5181
 | **管理员管理** | 启用 / 禁用管理员 | `PATCH /api/admin/admins/{id}/status` | ✅ 可用（仅高级管理员） |
 | **管理员管理** | 重置密码 | `PATCH /api/admin/admins/{id}/password` | ✅ 可用（仅高级管理员） |
 | **管理员管理** | 撤销管理员权限（降级为普通用户） | `DELETE /api/admin/admins/{id}` | ✅ 可用（仅高级管理员） |
-| 用户管理 | 用户列表（分页 + 搜索 + 角色/状态筛选） | `GET /api/admin/users` | ⚠️ 后端待提供 |
-| 用户管理 | 查看用户信息 | `GET /api/admin/users/{id}` | ⚠️ 后端待提供 |
-| 用户管理 | 禁用 / 启用用户 | `PATCH /api/admin/users/{id}/status` | ⚠️ 后端待提供 |
+| 用户管理 | 用户列表（分页 + 搜索 + 角色/状态筛选） | `GET /api/admin/users` | ✅ 可用 |
+| 用户管理 | 查看用户信息 | `GET /api/admin/users/{id}` | ✅ 可用 |
+| 用户管理 | 禁用 / 启用用户（禁用后 App 端无法登录） | `PATCH /api/admin/users/{id}/status` | ✅ 可用 |
 | 贴吧板块 | 列表（关键字搜索 + 前端分页） | `GET /api/bars` | ✅ 可用 |
 | 贴吧板块 | 新增贴吧 | `POST /api/bars` | ✅ 可用 |
-| 贴吧板块 | 编辑贴吧 | `PUT /api/bars/{id}` | ⚠️ 后端待提供 |
-| 贴吧板块 | 删除贴吧 | `DELETE /api/bars/{id}` | ⚠️ 后端待提供 |
+| 贴吧板块 | 编辑贴吧 | `PUT /api/bars/{id}` | ✅ 可用 |
+| 贴吧板块 | 删除贴吧（级联删除吧内帖子/关注/收藏） | `DELETE /api/bars/{id}` | ✅ 可用 |
 | 帖子管理 | 列表（分页 + 标题/正文搜索 + 按吧筛选 + 排序） | `GET /api/posts` | ✅ 可用 |
 | 帖子管理 | 查看详情（含 9 图预览） | `GET /api/posts/{id}` | ✅ 可用 |
 | 帖子管理 | 删除帖子（软删除） | `DELETE /api/posts/{id}` | ✅ 可用 |
 | 评论管理 | 按帖子查看评论（分页、从帖子页可直达） | `GET /api/posts/{id}/comments` | ✅ 可用 |
-| 评论管理 | 查看全部评论（分页 + 搜索） | `GET /api/admin/comments` | ⚠️ 后端待提供 |
-| 评论管理 | 删除违规评论 | `DELETE /api/comments/{id}` | ⚠️ 后端待提供 |
+| 评论管理 | 查看全部评论（分页 + 搜索） | `GET /api/admin/comments` | ✅ 可用 |
+| 评论管理 | 删除违规评论（软删除 + 帖子评论数 -1） | `DELETE /api/comments/{id}` | ✅ 可用 |
 
-**关于 ⚠️ 的说明**：本套管理后台按「不改动 bbs-app-backend」的要求开发，后端缺的接口前端**已经按统一 REST 约定写好调用**（见 `src/api/user.js`、`src/api/bar.js`、`src/api/comment.js` 的注释）。
-请求这类接口时，axios 拦截器把 404/405 标记为 `missing`，页面**内联提示**「后端暂未提供该接口」并给出契约（不弹红叉、不白屏）；**后端补齐后前端无需改一行代码**。
+**状态说明**：上表所有功能均已 **✅ 可用** —— 后端已补齐最后 7 个接口（用户管理 3 个、贴吧编辑/删除 2 个、全部评论/删除评论 2 个，见 `bbs-app-backend` 提交 `74a57ff`）。
+这 7 个接口的调用早已按统一 REST 约定写在 `src/api/user.js`、`src/api/bar.js`、`src/api/comment.js` 里，**后端补齐后前端未改一行代码即自动生效**；接口返回 404 时页面会内联提示（不会白屏或弹红叉）。
 
-## 接口缺口清单（需要在 bbs-app-backend 补充的接口）
+## 后端接口清单（7 个"缺口"接口已于 `74a57ff` 全部补齐）
 
-以下接口是**新增**的（不影响已有接口与已有前端），字段风格与现有接口保持一致：统一响应体 `{code:0,message:'ok',data:...}`、camelCase、分页结构 `{list,page,pageSize,total,totalPages,hasMore}`，且都要求 `require_admin`。
+以下接口均为**新增**（不影响原有接口与前端），字段风格与全站一致：统一响应体 `{code:0,message:'ok',data:...}`、camelCase、分页结构 `{list,page,pageSize,total,totalPages,hasMore}`，权限为 `require_admin`（普通管理员与高级管理员都可调用）。
 
 | 方法 | 路径 | 用途 | 返回 data |
 |---|---|---|---|
