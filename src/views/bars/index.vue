@@ -1,14 +1,5 @@
 <template>
   <div class="page-card">
-    <el-alert
-      class="gap-alert"
-      type="info"
-      show-icon
-      :closable="false"
-      title="贴吧板块：列表 / 新增 / 编辑 / 删除均已可用"
-      description="吧的形象统一用「吧图」（image 字段）；emoji 吧图标已废弃，数据库里也没有这一列了。"
-    />
-
     <!-- ============ 筛选区 ============ -->
     <div class="toolbar">
       <el-input
